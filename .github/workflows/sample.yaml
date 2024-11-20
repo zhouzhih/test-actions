@@ -1,0 +1,8 @@
+name: test
+on: push
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: echo "::error file=app.js,line=1,col=5,endColumn=7,title=YOUR-TITLE::Missing semicolon"
