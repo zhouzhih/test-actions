@@ -1,5 +1,10 @@
-name:Workflow for test
-on: [push, pull_request]
+name: Workflow for test
+
+on:
+  push:
+  pull_request:
+    branches:
+       - '**'
 jobs:
   run:
     runs-on: ubuntu-latest
