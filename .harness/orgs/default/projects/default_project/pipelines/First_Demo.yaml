@@ -1,0 +1,52 @@
+pipeline:
+  name: First_Demo
+  identifier: First_Demo
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: harness
+        build: <+input>
+  stages:
+    - stage:
+        name: Build
+        identifier: Build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: build package
+                  identifier: build_package
+                  spec:
+                    shell: Sh
+                    command: echo "build package"
+              - step:
+                  type: RunTests
+                  name: test
+                  identifier: test
+                  spec:
+                    language: Java
+                    buildTool: Maven
+                    args: mvn test
+                    runOnlySelectedTests: true
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - "**/.**.xml"
+                    enableTestSplitting: false
