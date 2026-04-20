@@ -1,0 +1,19 @@
+name: Workflow for test
+
+on:
+  push:
+  pull_request:
+    branches:
+       - '**'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Print commit SHA
+        run: |
+          echo "sourceBranch commitId: ${{ github.event.pull_request.head.sha }}"
+          echo "targetBranch commitId: ${{ github.event.pull_request.base.sha }}"
